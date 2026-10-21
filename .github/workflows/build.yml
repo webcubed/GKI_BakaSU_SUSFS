@@ -422,7 +422,7 @@ jobs:
             fi
           fi
 
-          retry 3 30 "$REPO" --trace sync -c "-j$(nproc --all)" --no-tags --fail-fast
+          retry 5 30 "$REPO" --trace sync -c "-j$(nproc --all)" --no-tags --retry-fetches=3 --fail-fast
           if [ -n "${RELEASE_TAG:-}" ]; then
             ACTUAL_SUBLEVEL=$(awk '/^SUBLEVEL = / {print $3; exit}' common/Makefile)
             if [ "$ACTUAL_SUBLEVEL" != "${{ inputs.sub_level }}" ]; then
